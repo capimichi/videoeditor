@@ -1,0 +1,16 @@
+{
+    "name": "capimichi/videoeditor",
+    "description": "Video editor based on Ffmpeg",
+    "authors": [
+        {
+            "name": "Michele Capicchioni",
+            "email": "capimichi@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "VideoEditor\\": "src/VideoEditor/"
+        }
+    }
+}
