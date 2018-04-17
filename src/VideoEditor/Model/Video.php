@@ -79,7 +79,7 @@ class Video implements VideoInterface
 
         $outputFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . md5(rand(0, 99999999999)) . ".jpg";
 
-        $command = sprintf("%s %s -i \"%s\" -c:v libx264 -pix_fmt yuvj422p -ss %s -vframes 1 \"%s\"",
+        $command = sprintf("%s %s -i \"%s\" -ss %s -vframes 1 \"%s\"",
             $this->videoEditor->getFfmpegPath(),
             $this->videoEditor->isDebug() ? "" : "-loglevel panic",
             $this->filePath,
