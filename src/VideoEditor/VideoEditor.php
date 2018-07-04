@@ -108,6 +108,41 @@ class VideoEditor
     }
 
     /**
+     * @param Model\VideoInterface $video
+     * @param $text
+     * @param array $options
+     * @return Model\VideoInterface
+     */
+    public function addVideoText(\VideoEditor\Model\VideoInterface $video, $text, $options = [])
+    {
+
+        $options = array_merge([
+            'start'     => "0",
+            'duration'  => "1",
+            'font_path' => "",
+        ], $options);
+
+        $outputFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . md5(rand(0, 999999999)) . ".mp4";
+
+        $command = sprintf("%s %s -i %s -vf \"drawtext=enable='between(t,%s,%s)':fontfile=%s: text='%s'\" -acodec copy %s",
+            $this->ffmpegPath,
+            $this->isDebug() ? "" : "-loglevel panic",
+            $video->getFilePath(),
+            $options['start'],
+            $options['duration'],
+            $options['font_path'],
+            $text,
+            $outputFile
+        );
+
+        exec($command);
+
+        $video = $this->createVideo($outputFile);
+
+        return $video;
+    }
+
+    /**
      * @return string
      */
     public function getFfmpegPath()
