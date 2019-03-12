@@ -36,9 +36,6 @@ class VideoEditor
         if ($filePath) {
             $video->setFilePath($filePath);
             
-            if (!file_exists($filePath)) {
-                file_put_contents($filePath, "");
-            }
         }
         
         
@@ -103,7 +100,7 @@ class VideoEditor
         
         $lastPieceVideo = $this->createVideo($outputFile);
         
-        if (filesize($video->getFilePath())) {
+        if (file_exists($video->getFilePath()) && filesize($video->getFilePath())) {
             $contatenatedVideo = $this->concatenateVideos([
                 $video,
                 $lastPieceVideo,
